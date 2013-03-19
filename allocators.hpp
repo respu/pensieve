@@ -3,7 +3,7 @@
 
 
 template<typename T>
-struct allocX {
+struct basic_alloc {
     using value_type = T;
     using pointer = T*;
     using const_pointer = const T*;
@@ -14,7 +14,7 @@ struct allocX {
 
     template<typename U>
     struct rebind {
-        using other = allocX<U>;
+        using other = basic_alloc<U>;
     };
 
     pointer allocate(std::size_t n) {
@@ -46,13 +46,13 @@ struct allocX {
 };
 
 template<typename T1, typename T2>
-bool operator==(const allocX<T1>& , const allocX<T2>& ) {
+bool operator==(const basic_alloc<T1>& , const basic_alloc<T2>& ) {
     return true;
 }
 
 
 template<typename T1, typename T2>
-bool operator!=(const allocX<T1>& , const allocX<T2>& ) {
+bool operator!=(const basic_alloc<T1>& , const basic_alloc<T2>& ) {
     return false; 
 }
 
