@@ -12,6 +12,13 @@ struct basic_alloc {
     using reference = T&;
     using const_reference = const T&;
 
+    basic_alloc() = default;
+    basic_alloc(const basic_alloc&) = default;
+    basic_alloc(basic_alloc&&) = default;
+    basic_alloc& operator=(const basic_alloc&) = default;
+    basic_alloc& operator=(basic_alloc&&) = default;
+    ~basic_alloc() = default;
+
     template<typename U>
     struct rebind {
         using other = basic_alloc<U>;
@@ -19,7 +26,7 @@ struct basic_alloc {
 
     pointer allocate(std::size_t n) {
         std::cout << "building: " << n << std::endl;
-        return (pointer) ::operator new(n * sizeof(T));
+        return static_cast<pointer>( ::operator new(n * sizeof(T)));
     }
 
     void deallocate(pointer ptr, std::size_t n) {
@@ -30,7 +37,7 @@ struct basic_alloc {
     template<typename U, typename ...Args>
     void construct(U* addr_ptr, Args&& ...args) {
         std::cout << "constructing" << std::endl;
-        new((void*) addr_ptr)U(std::forward<Args>(args)...);
+        new(static_cast<void*>(addr_ptr)) U(std::forward<Args>(args)...);
     }
 
     template<typename U>
