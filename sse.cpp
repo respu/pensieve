@@ -1,8 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <xmmintrin.h>	
 #include <immintrin.h>
-#include <math.h>
 #include <bam/timer.hpp>
 #include <iostream>
 #include <algorithm>
