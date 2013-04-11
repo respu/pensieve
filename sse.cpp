@@ -22,7 +22,7 @@ int main()
 
 
     for(auto i = 0; i != size; ++i) {
-      floating_pootr[i] = 1;
+        floating_pootr[i] = 1;
     }
 
     bam::basic_timer timer;
@@ -45,18 +45,19 @@ int main()
         __m256* avx_pootr = (__m256*)floating_pootr;
       
         for(auto i = 0; i != size/vec_size; ++i) {
-          const __m256 to_be_added = _mm256_set_ps(2.0f, 2.0f, 2.0f,2.0f,2.0f, 2.0f, 2.0f,2.0f);
+            const __m256 to_be_added = _mm256_set_ps(2.0f, 2.0f, 2.0f,2.0f,2.0f, 2.0f, 2.0f,2.0f);
       
-          avx_pootr[i] = _mm256_add_ps(avx_pootr[i], to_be_added);
+            avx_pootr[i] = _mm256_add_ps(avx_pootr[i], to_be_added);
         }
       
 #else // auto vectorization
         std::for_each(floating_pootr, floating_pootr + size, [] (float& x) { x += 2.0f; });
 #endif
     } // repeat 
+
     std::cout << "elapsed " << timer.elapsed() << std::endl;
     std::cout << "checksum " << std::accumulate(floating_pootr, floating_pootr + size, 0.0f) << std::endl;
   
 
-	return 0;
+    return 0;
 }
