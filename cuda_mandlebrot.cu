@@ -41,17 +41,17 @@ template<typename T>
 __host__ __device__
 void apply_mandel_brot(T* dest, int x, int y, int rows, int cols, const int iterations) {
     // calculate step
-	const float x_scaler = 3.5f / static_cast<float>(cols * 3.f);
+    const float x_scaler = 3.5f / static_cast<float>(cols * 3.f);
     const float y_scaler = 3.0f / static_cast<float>(rows);
     
     const float x0 = x * x_scaler - 2.5f;
-	const float y0 = y * y_scaler - 1.5f;
+    const float y0 = y * y_scaler - 1.5f;
 
-	float real = 0.f;
-	float img = 0.f;
+    float real = 0.f;
+    float img = 0.f;
 
-	int iter = 0;
-	while(real * real + img * img < 4.f && iter < iterations) {
+    int iter = 0;
+    while(real * real + img * img < 4.f && iter < iterations) {
         float real_temp = real * real - img * img + x0;
         img = 2.f * real * img + y0;
         real = real_temp;
@@ -77,7 +77,6 @@ void apply_mandel_brot(T* dest, int x, int y, int rows, int cols, const int iter
 
 // for_each functor
 struct apply_mandel {
-    typedef thrust::device_vector<float> data_vector;
 
     apply_mandel(float* vec, int rows, int cols, const int max_iterations) 
         : dest(vec), rows(rows), cols(cols), iterations(max_iterations) {}
@@ -97,7 +96,7 @@ struct apply_mandel {
 
 
 thrust::host_vector<float> render_mandel_brot_gpu(int rows, int cols, const int iterations) {
-	thrust::device_vector<float> d_vec(rows * cols * 3);
+    thrust::device_vector<float> d_vec(rows * cols * 3);
     apply_mandel worker(thrust::raw_pointer_cast(&d_vec[0]), rows, cols, iterations);
 
     thrust::device_vector<int> indices(rows * cols);
@@ -158,9 +157,9 @@ int main()
         img = copy_to_Mat(data, rows, cols);
     }
 
-	cv::namedWindow("mega", 0); // 0 means resizeable
-	cv::imshow("mega", img);
-	cv::waitKey(0);
+    cv::namedWindow("mega", 0); // 0 means resizeable
+    cv::imshow("mega", img);
+    cv::waitKey(0);
 
     std::cout << "Writing to file ..." << std::endl;
     cv::Mat transformed = transform_to_uchar(img);
