@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<root>
+    <!-- simply add this to your private.xml in KeyRemap4MacBook -->
+    <!-- fixes side buttons on Logitech MX 518 to go back and forth in browsers. Might work with other mice, too. Only tested on English OS and browsers -->
+    <item>
+        <name> Fix Logitech MX 518 Side-Buttons</name>
+        
+        <item>
+            <name> fix mouse button 4: Finder, Chrome, Safari</name>
+            <identifier>private.fix_mouse4</identifier>
+            <only>SAFARI, GOOGLE_CHROME, FINDER</only>
+            <autogen> __PointingButtonToKey__ PointingButton::BUTTON4, KeyCode::KEY_5, VK_OPTION | ModifierFlag::COMMAND_L</autogen>
+        </item>
+        
+        <item>
+            <name> fix mouse button 5: Finder, Chrome, Safari </name>
+            <identifier>private.fix_mouse5</identifier>
+            <only>SAFARI, GOOGLE_CHROME, FINDER</only>
+            <autogen> __PointingButtonToKey__ PointingButton::BUTTON5, KeyCode::KEY_6, VK_OPTION | ModifierFlag::COMMAND_L</autogen>
+        </item>
+        
+        <!-- fix for strange firefox behavior, above solution triggers fine but firefox only goes back when the history context menu is open. This strange behavior also appears when hitting the shortcuts directly. -->
+        <item>
+            <name> fix mouse button 4, Firefox </name>
+            <identifier>private.fix_mouse4_strange_firefox</identifier>
+            <only>FIREFOX</only>
+            <autogen> __PointingButtonToKey__ PointingButton::BUTTON4, KeyCode::CURSOR_LEFT, ModifierFlag::COMMAND_L</autogen>
+        </item>
+        
+        <item>
+            <name> fix mouse button 5, Firefox </name>
+            <identifier>private.fix_mouse5_strange_firefox</identifier>
+            <only>FIREFOX</only>
+            <autogen> __PointingButtonToKey__ PointingButton::BUTTON5, KeyCode::CURSOR_RIGHT, ModifierFlag::COMMAND_L</autogen>
+        </item>
+    </item>
+</root>
